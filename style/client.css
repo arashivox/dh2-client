@@ -3211,7 +3211,7 @@ a.ilink.yours {
 .avatarlist button {
 	width: 80px;
 	height: 80px;
-	background: transparent url(//play.pokemonshowdown.com/sprites/trainers-sheet.png) no-repeat scroll 0px 0px;
+	background: transparent url(https://raw.githubusercontent.com/arashivox/dhsprites/master/sprites/trainers-sheet.png) no-repeat scroll 0px 0px;
 }
 .bglist button span {
 	display: block;
