@@ -444,10 +444,32 @@ class ChatUserList extends preact.Component<{room: ChatRoom, left?: number, mini
 class ChatLog extends preact.Component<{
 	class: string, room: ChatRoom, onClick?: (e: Event) => void, children?: preact.ComponentChildren,
 	left?: number, top?: number, noSubscription?: boolean;
-}> {
+
+	
+}>{
 	log: BattleLog | null = null;
 	subscription: PSSubscription | null = null;
-	componentDidMount() {
+
+	emoteMap: { [key: string]: string }; // This is where we declare the list of emotes
+	constructor(props: any) {
+		super(props);
+	  
+		// Define emoteMap in the constructor
+		this.emoteMap = {
+		  ':pogchamp:': 'https://raw.githubusercontent.com/arashivox/dhsprites/master/emotes/pogchamp.png',
+		  // Add more emotes as needed
+		};
+	  
+
+	//   processEmotes(text: string) {
+	// 	return text.replace(/:([\w]+):/g, (match, emote) => {
+	// 	  const emoteUrl = this.emoteMap[emote];
+	// 	  if (emoteUrl) {
+	// 		return `<img src="${emoteUrl}" alt="${emote}" />`;
+	// 	  }
+	// 	  return match; // Return the original text if emote is not found
+	// 	});
+	  	  }	componentDidMount() {
 		if (!this.props.noSubscription) {
 			this.log = new BattleLog(this.base! as HTMLDivElement);
 		}
@@ -473,6 +495,7 @@ class ChatLog extends preact.Component<{
 		});
 		this.setControlsJSX(this.props.children);
 	}
+	
 	componentWillUnmount() {
 		if (this.subscription) this.subscription.unsubscribe();
 	}
@@ -512,15 +535,30 @@ class ChatLog extends preact.Component<{
 			this.log.updateScroll();
 		}
 	}
-	render() {
-		return <div class={this.props.class} role="log" onClick={this.props.onClick} style={{
-			left: this.props.left || 0, top: this.props.top || 0,
-		}}></div>;
-	}
-}
-
-PS.roomTypes['chat'] = {
+	displayEmote(emote: string): JSX.Element | string {
+		const emoteUrl = this.emoteMap[emote];
+		if (emoteUrl) {
+		  return <img src={emoteUrl} alt={emote} />;
+		}
+		return `:${emote}:`; // Return the original emote placeholder if not found
+	  }	  render() {
+		const emotesToDisplay = [':pogchamp:', ':smile:']; // List of emotes to display
+	
+		return (
+		  <div class={this.props.class} role="log" onClick={this.props.onClick} style={{ left: this.props.left || 0, top: this.props.top || 0 }}>
+			{emotesToDisplay.map((emote, index) => (
+			  <span key={index}>
+				{this.displayEmote(emote)}
+			  </span>
+			))}
+		  </div>
+		);
+	  }
+	}PS.roomTypes['chat'] = {
 	Model: ChatRoom,
 	Component: ChatPanel,
 };
+
 PS.updateRoomTypes();
+// Add a simple emote mapping (emoteCode: imageSource)
+

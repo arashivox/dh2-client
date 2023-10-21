@@ -1303,7 +1303,7 @@
 			buf += '<div class="setcol setcol-stats"><div class="setrow"><label>Stats</label><button class="textbox setstats" name="stats">';
 			buf += '<span class="statrow statrow-head"><label></label> <span class="statgraph"></span> <em>' + (!isLetsGo ? 'EV' : 'AV') + '</em></span>';
 			var stats = {};
-			var defaultEV = ((this.curTeam.gen > 2 && !this.ignoreEVLimits) ? 0 : 252);
+			var defaultEV = ((this.curTeam.gen > 2 && !this.ignoreEVLimits) ? 1 : 252);
 			for (var j in BattleStatNames) {
 				if (j === 'spd' && this.curTeam.gen === 1) continue;
 				stats[j] = this.getStat(j, set);

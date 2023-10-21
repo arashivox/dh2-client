@@ -29,32 +29,32 @@
 			// (created during page load)
 
 			// left menu 1 (high-res: left, low-res: bottom)
-			var buf = '';
-			if (app.down) {
-				buf += '<div class="menugroup" style="background: rgba(10,10,10,.6)">';
-				if (app.down === 'ddos') {
-					buf += '<p class="error"><strong>Pok&eacute;mon Showdown is offline due to a DDoS attack!</strong></p>';
-				} else {
-					buf += '<p class="error"><strong>Pok&eacute;mon Showdown is offline due to technical difficulties!</strong></p>';
-				}
-				buf += '<p><div style="text-align:center"><img width="96" height="96" src="//play.pokemonshowdown.com/sprites/gen5/teddiursa.png" alt="" /></div> Bear with us as we freak out.</p>';
-				buf += '<p>(We\'ll be back up in a few hours.)</p>';
-				buf += '</div>';
-			} else {
-				buf += '<div class="menugroup"><form class="battleform" data-search="1">';
-				buf += '<p><label class="label">Format:</label>' + this.renderFormats() + '</p>';
-				buf += '<p><label class="label">Team:</label>' + this.renderTeams() + '</p>';
-				buf += '<p><label class="label" name="partner" style="display:none">';
-				buf += 'Partner: <input name="teammate" /></label></p>';
-				buf += '<p><label class="checkbox"><input type="checkbox" name="private" ' + (Storage.prefs('disallowspectators') ? 'checked' : '') + ' /> <abbr title="You can still invite spectators by giving them the URL or using the /invite command">Don\'t allow spectators</abbr></label></p>';
-				buf += '<p><button class="button mainmenu1 big" name="search"><strong>Battle!</strong><br /><small>Find a random opponent</small></button></p></form></div>';
-			}
+			 var buf = '';
+			// if (app.down) {
+			// 	buf += '<div class="menugroup" style="background: rgba(10,10,10,.6)">';
+			// 	if (app.down === 'ddos') {
+			// 		buf += '<p class="error"><strong>Pok&eacute;mon Showdown is offline due to a DDoS attack!</strong></p>';
+			// 	} else {
+			// 		buf += '<p class="error"><strong>Pok&eacute;mon Showdown is offline due to technical difficulties!</strong></p>';
+			// 	}
+			// 	buf += '<p><div style="text-align:center"><img width="96" height="96" src="//play.pokemonshowdown.com/sprites/gen5/teddiursa.png" alt="" /></div> Bear with us as we freak out.</p>';
+			// 	buf += '<p>(We\'ll be back up in a few hours.)</p>';
+			// 	buf += '</div>';
+			// } else {
+			// 	buf += '<div class="menugroup"><form class="battleform" data-search="1">';
+			// 	buf += '<p><label class="label">Format:</label>' + this.renderFormats() + '</p>';
+			// 	buf += '<p><label class="label">Team:</label>' + this.renderTeams() + '</p>';
+			// 	buf += '<p><label class="label" name="partner" style="display:none">';
+			// 	buf += 'Partner: <input name="teammate" /></label></p>';
+			// 	buf += '<p><label class="checkbox"><input type="checkbox" name="private" ' + (Storage.prefs('disallowspectators') ? 'checked' : '') + ' /> <abbr title="You can still invite spectators by giving them the URL or using the /invite command">Don\'t allow spectators</abbr></label></p>';
+			// 	buf += '<p><button class="button mainmenu1 big" name="search"><strong>Battle!</strong><br /><small>Find a random opponent</small></button></p></form></div>';
+			// }
 
 			buf += '<div class="menugroup">';
 			buf += '<p><button class="button mainmenu2" name="joinRoom" value="teambuilder">Teambuilder</button></p>';
+			buf += '<div class="menugroup"><p><button class="button mainmenu4 onlineonly disabled" name="joinRoom" value="battles">Watch a battle</button></p>';
 			buf += '</div>';
 
-			buf += '<div class="menugroup"><p><button class="button mainmenu4 onlineonly disabled" name="joinRoom" value="battles">Watch a battle</button></p>';
 
 			this.$('.mainmenu').html(buf);
 

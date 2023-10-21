@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta id="viewport" name="viewport" content="width=device-width" />
-		<title>Showdown!</title>
+		<title>AX-Showdown!</title>
 		<link rel="shortcut icon" href="favicon.ico" id="dynamic-favicon" />
 		<link rel="stylesheet" href="style/battle.css" />
 		<link rel="stylesheet" href="style/client.css" />
@@ -50,8 +50,133 @@
 						<div class="pm-window news-embed">
 							<h3><button class="closebutton" tabindex="-1" aria-label="Close"><i class="fa fa-times-circle"></i></button><button class="minimizebutton" tabindex="-1" aria-label="Minimize"><i class="fa fa-minus-circle"></i></button>Latest News</h3>
 							<div class="pm-log" style="max-height:none">
-								<div class="newsentry"><h1>Ancestral X Showdown Server!</h1><p>Only battle in "AX Doubles" and "AX Singles". To battle simply right-click a player and click on Challenge.</p><strong></strong></div>
-							</div>
+								<style>
+									.mainmenufooter {
+									  position: fixed; /* Fixed position keeps it at the bottom even when scrolling */
+									  bottom: 0; /* Stick it to the bottom */
+									  left: 0; /* Align it to the left */
+									  width: 100%; /* Make it full width */
+									  z-index: 1; /* Set a z-index to keep it at the bottom */
+									}
+								  
+									.pm-window {
+									  position: relative; /* Reset position for pm-window */
+									  z-index: 2; /* Set a higher z-index to keep it above the mainmenufooter */
+									}
+								  </style>
+																  <div class="newsentry">
+									<div style="text-align: center;">
+										<img class="position:center" src="./sprites/AncestralBanner.png" width="256" height="142" alt="uwu" />
+										<h1 style="margin-top: -10px;">Showdown Server!</h1>
+									  </div>									<style>
+										/* CSS for styling the expandable content and image */
+										.expandable-content {
+										  display: none;
+										}
+										.expandable-content img {
+										  display: block;
+										  margin: 0 auto;
+										  width: 192px;
+										  height: 128px;
+										}
+									  </style>
+									  
+									<p>
+										<span style="display: block; text-align: center;">Welcome!</span><br>
+										This is a custom Pokemon-Showdown Server with all the changes made in Axyn's Romhack "Ancestral X".<br>
+										<h4>Have Fun!</h4>
+									</p>									  
+									  <!-- Toggle for the welcome message -->
+									<p><a onclick="toggleExpand('welcomeContent')">Click here for a warm welcome!</a></p>
+									<div id="welcomeContent" class="expandable-content">
+										<p>Welcome to our community!<br> We're glad you're here.<br></p>
+										<img src="./sprites/turtles-heart-eyes.gif" alt="GIF description">
+									  </div>
+									<p><a onclick="toggleExpand('howToBattleContent')">How to Battle</a></p>
+									<div id="howToBattleContent" class="expandable-content">
+  										<p>Since searching for random Opponents doesn't work, you have to simply click a player and click on Challenge to battle.<br>
+											<br>
+										Alternatively, you can use the command <code>/challenge username, format</code> where <code>username</code> is the player's username and <code>format</code> is the battle format (e.g., <code>gen6axdoubles</code> or <code>gen6axsingles</code>).</p>
+									</div>
+									<p><a onclick="toggleExpand('formatRulesetContent')">Battleformats and Ruleset</a></p>
+									<div id="formatRulesetContent" class="expandable-content">
+  										<p>Current Battle Formats:</p>
+  										<ul>
+    										<li>Doubles</li>
+    										<li>Singles</li>
+											<li>Multi (Max Team Size = 3)</li>
+    										<!-- Add more rules as needed -->
+  										</ul>
+										<p>All formats follow a standard ruleset, which includes the removal of 'Swagger' and the 'Evasion Clause.'</p>
+										<p>We might introduce new formats in the Future!</p>
+									</div>
+
+									  <!-- Toggle for the changelogs -->
+									<p><a onclick="toggleExpand('changelogContent')">Changelogs</a></p>
+									<div id="changelogContent" class="expandable-content">
+										<p style="text-align: center;">v1.1</p>
+										<ul>
+											<li><small>Fixed Speed Values after getting paralyzed</small></li>
+											<li><small>Fixed Arceus Forms' BST's</small></li>
+											<li><small>Added a Multi-Battle Format for testing</small></li>
+										</ul>
+										<p style="text-align: center;">v1.0</p>
+										<ul>
+										  <li><small>Edited "Usually Useless Moves" Category when teaching moves to only have Hidden Power and its various Types now</small></li>
+										  <li><small>Disabled all formats except the AX ones</small></li>
+										  <li><small>Rotom Forms have their signature Moves now</small></li>
+										  <li><small>Removed non-functional Buttons and Links from the Home-Screen</small></li>
+										  <li><small>Added a Link to the AX Documentation at the bottom left</small></li>
+										  <li><small>Added Version to the bottom</small></li>
+										  <li><small>No more issues with spectating</small></li>
+										  <li><small>Updated Item Descriptions for Shell Bell and Big Root</small></li>
+										  <li><small>Sprite Hosting works now:
+											<ul>
+												<li>New Favicon</li>
+												<li>New Banner (topleft)</li>
+												<li>Trainer Sprites</li>
+												<li>Backgrounds</li>
+											</ul>
+										  </small></li>
+										  <li>
+											<small>Move Fixes:
+												<ul>
+													<li>Fixed PP Values</li>
+													<li>Fixed Thousand Waves</li>
+													<li>Fixed Leech Life</li>
+													<li>Fixed Dark Void</li>
+												</ul>
+											</small></li>
+										</ul>
+									  </div>
+									<p><a onclick="toggleExpand('feedbackContent')">Feedback/Bugs</a></p>
+									<div id="feedbackContent" class="expandable-content">
+  									<p>We appreciate your feedback! If you have any suggestions, questions, or encounter any bugs, feel free to share them in our <a href="https://discord.gg/ancestral-x-973328243241398342">Discord</a>.</p>
+									</div>
+
+									  <p><a onclick="toggleExpand('creditsContent')">Credits</a></p>
+										<div id="creditsContent" class="expandable-content">
+  												<ul>
+    												<li><small>Server development: Ara</small></li>
+    												<li><small>Scripts: Something_Smart</small></li>
+    												<li><small>Community management: Dingus</small></li>
+    												<li><small>Testing: Daotama, Dingus, Sean, Something_Smart </small></li>
+													<li><small>And, of course, a huge thanks to Axyn for creating this amazing Romhack #axynsmokingcrack</small></li>
+ 											 	</ul>
+										</div>
+
+									  <script>
+									  function toggleExpand(contentId) {
+										var content = document.getElementById(contentId);
+										if (content.style.display === 'none' || content.style.display === '') {
+										  content.style.display = 'block';
+										} else {
+										  content.style.display = 'none';
+										}
+									  }
+									  </script>
+									</div>							
+							</div>	
 						</div>	
 					</div>
 				</div>
@@ -61,10 +186,22 @@
 			</div>
 			<div class="rightmenu">
 			</div>
-			<div class="mainmenufooter">
-				<small><a href="//pokemonshowdown.com/" target="_blank"><strong>Pok&eacute;mon Showdown</strong></a> | <a href="http://smogon.com/" target="_blank"><strong>Smogon</strong></a><br><a href="//pokemonshowdown.com/dex/" target="_blank">Pokédex</a> | <a href="//pokemonshowdown.com/replay/" target="_blank">Replays</a> | <a href="//pokemonshowdown.com/rules" target="_blank">Rules</a></small> | <small><a href="//pokemonshowdown.com/forums/" target="_blank">Forum</a></small>
-			</div>
-		</div></div>
+			<style>
+				.mainmenufooter a {
+				  text-decoration: none; /* Remove underline for the link */
+				  color: inherit; /* Use the default color for the link */
+				}
+			  </style>
+			  
+			  <div class="mainmenufooter">
+				<small>
+				  <a href="https://drive.google.com/drive/folders/1224TPgEUV3jBc34A35E_S8I-Zhh7UxcC" target="_blank">
+					<strong>Ancestral X Documentation</strong> 
+				  </a> |
+				  <span style="margin-left: 0px;">AX-Showdown Version 1.1</span>
+				</small>
+			  </div>
+					  </div></div>
 		<script>
 			document.getElementById('loading-message').innerHTML += ' DONE<br />Loading libraries...';
 		</script>

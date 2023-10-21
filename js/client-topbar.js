@@ -155,10 +155,10 @@
 				var $favicon = $('#dynamic-favicon');
 				if (!!$favicon.data('on') !== !!notificationCount) {
 					if (notificationCount) {
-						$favicon.attr('href', Dex.resourcePrefix + '/favicon-notify.ico');
+						$favicon.attr('href', 'https://raw.githubusercontent.com/arashivox/dhsprites/main/favicon-notify.ico');
 						$favicon.data('on', '1');
 					} else {
-						$favicon.attr('href', Dex.resourcePrefix + '/favicon.ico');
+						$favicon.attr('href', 'https://raw.githubusercontent.com/arashivox/dhsprites/main//favicon.ico');
 						$favicon.data('on', '');
 					}
 				}
@@ -195,7 +195,7 @@
 		updateTabbarMini: function () {
 			this.$('.logo').hide();
 			this.$('.maintabbar').addClass('minitabbar');
-			var notificationClass = '';
+			var notificationClass = '#dynamic-favicon';
 			for (var i in app.rooms) {
 				if (app.rooms[i] !== app.curRoom && app.rooms[i].notificationClass === ' notifying') notificationClass = ' notifying';
 			}

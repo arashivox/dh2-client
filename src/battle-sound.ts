@@ -106,8 +106,8 @@ export const BattleSound = new class {
 	bgm: BattleBGM[] = [];
 
 	// options
-	effectVolume = 50;
-	bgmVolume = 50;
+	effectVolume = 25;
+	bgmVolume = 25;
 	muted = false;
 
 	getSound(url: string) {

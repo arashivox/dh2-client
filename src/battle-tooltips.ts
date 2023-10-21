@@ -1271,7 +1271,7 @@ class BattleTooltips {
 			if (this.battle.gen > 6) {
 				stats.spe = Math.floor(stats.spe * 0.5);
 			} else {
-				stats.spe = Math.floor(stats.spe * 0.25);
+				stats.spe = Math.floor(stats.spe * 0.25 * 4);
 			}
 		}
 

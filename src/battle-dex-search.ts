@@ -1413,245 +1413,252 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		let abilityid: ID = set ? toID(set.ability) : '' as ID;
 		const itemid: ID = set ? toID(set.item) : '' as ID;
 
-		if (dex.gen === 1) {
-			// Usually not useless for Gen 1
-			if ([
-				'acidarmor', 'amnesia', 'barrier', 'bind', 'blizzard', 'clamp', 'confuseray', 'counter', 'firespin', 'growth', 'headbutt', 'hyperbeam', 'mirrormove', 'pinmissile', 'razorleaf', 'sing', 'slash', 'sludge', 'twineedle', 'wrap',
-			].includes(id)) {
-				return true;
-			}
+		if (id.startsWith('hiddenpower')) {return false;}
+		return true;
 
-			// Usually useless for Gen 1
-			if ([
-				'disable', 'haze', 'leechseed', 'quickattack', 'roar', 'thunder', 'toxic', 'triattack', 'waterfall', 'whirlwind',
-			].includes(id)) {
-				return false;
-			}
+		// if (dex.gen === 1) {
+		// 	// Usually not useless for Gen 1
+		// 	if ([
+		// 		'acidarmor', 'amnesia', 'barrier', 'bind', 'blizzard', 'clamp', 'confuseray', 'counter', 'firespin', 'growth', 'headbutt', 'hyperbeam', 'mirrormove', 'pinmissile', 'razorleaf', 'sing', 'slash', 'sludge', 'twineedle', 'wrap',
+		// 	].includes(id)) {
+		// 		return true;
+		// 	}
 
-			// Not useless only when certain moves aren't present
-			switch (id) {
-			case 'bubblebeam': return (!moves.includes('surf') && !moves.includes('blizzard'));
-			case 'doubleedge': return !moves.includes('bodyslam');
-			case 'doublekick': return !moves.includes('submission');
-			case 'firepunch': return !moves.includes('fireblast');
-			case 'megadrain': return !moves.includes('razorleaf') && !moves.includes('surf');
-			case 'megakick': return !moves.includes('hyperbeam');
-			case 'reflect': return !moves.includes('barrier') && !moves.includes('acidarmor');
-			case 'stomp': return !moves.includes('headbutt');
-			case 'submission': return !moves.includes('highjumpkick');
-			case 'thunderpunch': return !moves.includes('thunderbolt');
-			case 'triattack': return !moves.includes('bodyslam');
-			}
-			// Useful and Useless moves for Stadium OU, which changes many game mechanics.
-			if (this.formatType === 'stadium') {
-				if (['doubleedge', 'focusenergy', 'haze'].includes(id)) return true;
-				if (['hyperbeam', 'sing', 'hypnosis'].includes(id)) return false;
-				switch (id) {
-				case 'fly': return !moves.includes('drillpeck');
-				case 'dig': return !moves.includes('earthquake');
-				}
-			}
-			// KEP Integrations. This acts as a "correctional" patch.
-			if (this.mod === 'gen1expansionpack') {
-				if (['bulletpunch', 'irondefense', 'ironhead', 'metalsound', 'drainingkiss', 'charm'].includes(id)) return true;
-				if (['magnetbomb', 'disarmingvoice', 'brutalswing'].includes(id)) return false;
-				switch (id) {
-					// steel hierarchy
-					case 'smartstrike': return !moves.includes('ironhead');
-					case 'magnetbomb': return !moves.includes('ironhead') && !moves.includes('smartstrike');
-					case 'mirrorshot': return !moves.includes('ironhead') && !moves.includes('smartstrike') && !moves.includes('magnetbomb');
-					// dark hierarchy
-					case 'kowtowcleave': return !moves.includes('nightslash');
-					case 'falsesurrender': return !moves.includes('kowtowcleave') && !moves.includes('nightslash');
-					case 'feintattack': return !moves.includes('kowtowcleave') && !moves.includes('falsesurrender') && !moves.includes('nightslash');
-					case 'brutalswing': return !moves.includes('kowtowcleave') && !moves.includes('falsesurrender') && !moves.includes('nightslash') && !moves.includes('feintattack');
-				}
-			}
-		}
+		// 	// Usually useless for Gen 1
+		// 	if ([
+		// 		'disable', 'haze', 'leechseed', 'quickattack', 'roar', 'thunder', 'toxic', 'triattack', 'waterfall', 'whirlwind',
+		// 	].includes(id)) {
+		// 		return false;
+		// 	}
 
-		if (this.formatType === 'letsgo') {
-			if (['megadrain', 'teleport'].includes(id)) return true;
-		}
+		// 	// Not useless only when certain moves aren't present
+		// 	switch (id) {
+		// 	case 'bubblebeam': return (!moves.includes('surf') && !moves.includes('blizzard'));
+		// 	case 'doubleedge': return !moves.includes('bodyslam');
+		// 	case 'doublekick': return !moves.includes('submission');
+		// 	case 'firepunch': return !moves.includes('fireblast');
+		// 	case 'megadrain': return !moves.includes('razorleaf') && !moves.includes('surf');
+		// 	case 'megakick': return !moves.includes('hyperbeam');
+		// 	case 'reflect': return !moves.includes('barrier') && !moves.includes('acidarmor');
+		// 	case 'stomp': return !moves.includes('headbutt');
+		// 	case 'submission': return !moves.includes('highjumpkick');
+		// 	case 'thunderpunch': return !moves.includes('thunderbolt');
+		// 	case 'triattack': return !moves.includes('bodyslam');
+		// 	}
+		// 	// Useful and Useless moves for Stadium OU, which changes many game mechanics.
+		// 	if (this.formatType === 'stadium') {
+		// 		if (['doubleedge', 'focusenergy', 'haze'].includes(id)) return true;
+		// 		if (['hyperbeam', 'sing', 'hypnosis'].includes(id)) return false;
+		// 		switch (id) {
+		// 		case 'fly': return !moves.includes('drillpeck');
+		// 		case 'dig': return !moves.includes('earthquake');
+		// 		}
+		// 	}
+		// 	// KEP Integrations. This acts as a "correctional" patch.
+		// 	if (this.mod === 'gen1expansionpack') {
+		// 		if (['bulletpunch', 'irondefense', 'ironhead', 'metalsound', 'drainingkiss', 'charm'].includes(id)) return true;
+		// 		if (['magnetbomb', 'disarmingvoice', 'brutalswing'].includes(id)) return false;
+		// 		switch (id) {
+		// 			// steel hierarchy
+		// 			case 'smartstrike': return !moves.includes('ironhead');
+		// 			case 'magnetbomb': return !moves.includes('ironhead') && !moves.includes('smartstrike');
+		// 			case 'mirrorshot': return !moves.includes('ironhead') && !moves.includes('smartstrike') && !moves.includes('magnetbomb');
+		// 			// dark hierarchy
+		// 			case 'kowtowcleave': return !moves.includes('nightslash');
+		// 			case 'falsesurrender': return !moves.includes('kowtowcleave') && !moves.includes('nightslash');
+		// 			case 'feintattack': return !moves.includes('kowtowcleave') && !moves.includes('falsesurrender') && !moves.includes('nightslash');
+		// 			case 'brutalswing': return !moves.includes('kowtowcleave') && !moves.includes('falsesurrender') && !moves.includes('nightslash') && !moves.includes('feintattack');
+		// 		}
+		// 	}
+		// }
 
-		if (this.formatType === 'metronome') {
-			if (id === 'metronome') return true;
-		}
+		// if (this.formatType === 'letsgo') {
+		// 	if (['megadrain', 'teleport'].includes(id)) return true;
+		// }
 
-		if (itemid === 'pidgeotite') abilityid = 'noguard' as ID;
-		if (itemid === 'blastoisinite') abilityid = 'megalauncher' as ID;
-		if (itemid === 'aerodactylite') abilityid = 'toughclaws' as ID;
-		if (itemid === 'glalitite') abilityid = 'refrigerate' as ID;
+		// if (this.formatType === 'metronome') {
+		// 	if (id === 'metronome') return true;
+		// }
 
-		switch (id) {
-		case 'fakeout': case 'flamecharge': case 'nuzzle': case 'poweruppunch':
-			return abilityid !== 'sheerforce';
-		case 'solarbeam': case 'solarblade':
-			return ['desolateland', 'drought', 'chlorophyll', 'orichalcumpulse'].includes(abilityid) || itemid === 'powerherb';
-		case 'dynamicpunch': case 'grasswhistle': case 'inferno': case 'sing': case 'zapcannon':
-			return abilityid === 'noguard';
-		case 'heatcrash': case 'heavyslam':
-			return species.weightkg >= (species.evos ? 75 : 130);
+		// if (itemid === 'pidgeotite') abilityid = 'noguard' as ID;
+		// if (itemid === 'blastoisinite') abilityid = 'megalauncher' as ID;
+		// if (itemid === 'aerodactylite') abilityid = 'toughclaws' as ID;
+		// if (itemid === 'glalitite') abilityid = 'refrigerate' as ID;
 
-		case 'aerialace':
-			return ['technician', 'toughclaws'].includes(abilityid) && !moves.includes('bravebird');
-		case 'ancientpower':
-			return ['serenegrace', 'technician'].includes(abilityid) || !moves.includes('powergem');
-		case 'aquajet':
-			return !moves.includes('jetpunch');
-		case 'aurawheel':
-			return species.baseSpecies === 'Morpeko';
-		case 'axekick':
-			return !moves.includes('highjumpkick');
-		case 'bellydrum':
-			return moves.includes('aquajet') || moves.includes('jetpunch') || moves.includes('extremespeed') ||
-				['iceface', 'unburden'].includes(abilityid);
-		case 'bulletseed':
-			return ['skilllink', 'technician'].includes(abilityid);
-		case 'chillingwater':
-			return !moves.includes('scald');
-		case 'counter':
-			return species.baseStats.hp >= 65;
-		case 'darkvoid':
-			return dex.gen < 7;
-		case 'dualwingbeat':
-			return abilityid === 'technician' || !moves.includes('drillpeck');
-		case 'feint':
-			return abilityid === 'refrigerate';
-		case 'grassyglide':
-			return abilityid === 'grassysurge';
-		case 'gyroball':
-			return species.baseStats.spe <= 60;
-		case 'headbutt':
-			return abilityid === 'serenegrace';
-		case 'hex':
-			return !moves.includes('infernalparade');
-		case 'hiddenpowerelectric':
-			return (dex.gen < 4 && !moves.includes('thunderpunch')) && !moves.includes('thunderbolt');
-		case 'hiddenpowerfighting':
-			return (dex.gen < 4 && !moves.includes('brickbreak')) && !moves.includes('aurasphere') && !moves.includes('focusblast');
-		case 'hiddenpowerfire':
-			return (dex.gen < 4 && !moves.includes('firepunch')) && !moves.includes('flamethrower') &&
-				!moves.includes('mysticalfire') && !moves.includes('burningjealousy');
-		case 'hiddenpowergrass':
-			return !moves.includes('energyball') && !moves.includes('grassknot') && !moves.includes('gigadrain');
-		case 'hiddenpowerice':
-			return !moves.includes('icebeam') && (dex.gen < 4 && !moves.includes('icepunch')) ||
-				(dex.gen > 5 && !moves.includes('aurorabeam') && !moves.includes('glaciate'));
-		case 'hiddenpowerflying':
-			return dex.gen < 4 && !moves.includes('drillpeck');
-		case 'hiddenpowerbug':
-			return dex.gen < 4 && !moves.includes('megahorn');
-		case 'hiddenpowerpsychic':
-			return species.baseSpecies === 'Unown';
-		case 'hyperspacefury':
-			return species.id === 'hoopaunbound';
-		case 'hypnosis':
-			return (dex.gen < 4 && !moves.includes('sleeppowder')) || (dex.gen > 6 && abilityid === 'baddreams');
-		case 'icepunch':
-			return !moves.includes('icespinner') || ['sheerforce', 'ironfist'].includes(abilityid) || itemid === 'punchingglove';
-		case 'iciclecrash':
-			return !moves.includes('mountaingale');
-		case 'icywind':
-			// Keldeo needs Hidden Power for Electric/Ghost
-			return species.baseSpecies === 'Keldeo' || this.formatType === 'doubles';
-		case 'infestation':
-			return moves.includes('stickyweb');
-		case 'irondefense':
-			return !moves.includes('acidarmor');
-		case 'irontail':
-			return dex.gen > 5 && !moves.includes('ironhead') && !moves.includes('gunkshot') && !moves.includes('poisonjab');
-		case 'jumpkick':
-			return !moves.includes('highjumpkick') && !moves.includes('axekick');
-		case 'lastresort':
-			return set && set.moves.length < 3;
-		case 'leechlife':
-			return dex.gen > 6;
-		case 'mysticalfire':
-			return dex.gen > 6 && !moves.includes('flamethrower');
-		case 'naturepower':
-			return dex.gen === 5;
-		case 'nightslash':
-			return !moves.includes('crunch') && !(moves.includes('knockoff') && dex.gen >= 6);
-		case 'outrage':
-			return !moves.includes('glaiverush');
-		case 'petaldance':
-			return abilityid === 'owntempo';
-		case 'phantomforce':
-			return (!moves.includes('poltergeist') && !moves.includes('shadowclaw')) || this.formatType === 'doubles';
-		case 'poisonfang':
-			return species.types.includes('Poison') && !moves.includes('gunkshot') && !moves.includes('poisonjab');
-		case 'relicsong':
-			return species.id === 'meloetta';
-		case 'refresh':
-			return !moves.includes('aromatherapy') && !moves.includes('healbell');
-		case 'risingvoltage':
-			return abilityid === 'electricsurge' || abilityid === 'hadronengine';
-		case 'rocktomb':
-			return abilityid === 'technician';
-		case 'selfdestruct':
-			return dex.gen < 5 && !moves.includes('explosion');
-		case 'shadowpunch':
-			return abilityid === 'ironfist' && !moves.includes('ragefist');
-		case 'shelter':
-			return !moves.includes('acidarmor') && !moves.includes('irondefense');
-		case 'smackdown':
-			return species.types.includes('Ground');
-		case 'smartstrike':
-			return species.types.includes('Steel') && !moves.includes('ironhead');
-		case 'soak':
-			return abilityid === 'unaware';
-		case 'steelwing':
-			return !moves.includes('ironhead');
-		case 'stompingtantrum':
-			return (!moves.includes('earthquake') && !moves.includes('drillrun')) || this.formatType === 'doubles';
-		case 'stunspore':
-			return !moves.includes('thunderwave');
-		case 'technoblast':
-			return dex.gen > 5 && itemid.endsWith('drive') || itemid === 'dousedrive';
-		case 'teleport':
-			return dex.gen > 7;
-		case 'terrainpulse': case 'waterpulse':
-			return ['megalauncher', 'technician'].includes(abilityid) && !moves.includes('originpulse');
-		case 'toxicspikes':
-			return abilityid !== 'toxicdebris';
-		case 'trickroom':
-			return species.baseStats.spe <= 100;
-		}
+		// switch (id) {
+		
+		// case 'fakeout': case 'flamecharge': case 'nuzzle': case 'poweruppunch':
+		// 	return abilityid !== 'sheerforce';
+		// case 'solarbeam': case 'solarblade':
+		// 	return ['desolateland', 'drought', 'chlorophyll', 'orichalcumpulse'].includes(abilityid) || itemid === 'powerherb';
+		// case 'dynamicpunch': case 'grasswhistle': case 'inferno': case 'sing': case 'zapcannon':
+		// 	return abilityid === 'noguard';
+		// case 'heatcrash': case 'heavyslam':
+		// 	return species.weightkg >= (species.evos ? 75 : 130);
 
-		if (this.formatType === 'doubles' && BattleMoveSearch.GOOD_DOUBLES_MOVES.includes(id)) {
-			return true;
-		}
-		// Custom move added by a mod
-		if (this.mod && id in BattleTeambuilderTable[this.mod].overrideMoveInfo 
-			&& !BattleTeambuilderTable[this.mod].overrideMoveInfo[id].unviable
-			&& !BattleTeambuilderTable[this.mod].overrideMoveInfo[id].modMoveFromOldGen
-			) return true;
-		const modMoveData = BattleMovedex[id];
-		if (!modMoveData) return true;
-		if (modMoveData.category === 'Status') {
-			return BattleMoveSearch.GOOD_STATUS_MOVES.includes(id);
-		}
-		const moveData = BattleMovedex[id];
-		if (!moveData) return true;
-		if (moveData.category === 'Status') {
-			return BattleMoveSearch.GOOD_STATUS_MOVES.includes(id);
-		}
-		if (moveData.basePower < 75) {
-			return BattleMoveSearch.GOOD_WEAK_MOVES.includes(id);
-		}
-		if (id === 'skydrop') return true;
-		// strong moves
-		if (moveData.flags?.charge) {
-			return itemid === 'powerherb';
-		}
-		if (moveData.flags?.recharge) {
-			return false;
-		}
-		if (moveData.flags?.slicing && abilityid === 'sharpness') {
-			return true;
-		}
-		return !BattleMoveSearch.BAD_STRONG_MOVES.includes(id);
+		// case 'aerialace':
+		// 	return ['technician', 'toughclaws'].includes(abilityid) && !moves.includes('bravebird');
+		// case 'ancientpower':
+		// 	return ['serenegrace', 'technician'].includes(abilityid) || !moves.includes('powergem');
+		// case 'aquajet':
+		// 	return !moves.includes('jetpunch');
+		// case 'aurawheel':
+		// 	return species.baseSpecies === 'Morpeko';
+		// case 'axekick':
+		// 	return !moves.includes('highjumpkick');
+		// case 'bellydrum':
+		// 	return moves.includes('aquajet') || moves.includes('jetpunch') || moves.includes('extremespeed') ||
+		// 		['iceface', 'unburden'].includes(abilityid);
+		// case 'bulletseed':
+		// 	return ['skilllink', 'technician'].includes(abilityid);
+		// case 'chillingwater':
+		// 	return !moves.includes('scald');
+		// case 'counter':
+		// 	return species.baseStats.hp >= 65;
+		// case 'darkvoid':
+		// 	return dex.gen < 7;
+		// case 'dualwingbeat':
+		// 	return abilityid === 'technician' || !moves.includes('drillpeck');
+		// case 'feint':
+		// 	return abilityid === 'refrigerate';
+		// case 'grassyglide':
+		// 	return abilityid === 'grassysurge';
+		// case 'gyroball':
+		// 	return species.baseStats.spe <= 60;
+		// case 'headbutt':
+		// 	return abilityid === 'serenegrace';
+		// case 'hex':
+		// 	return !moves.includes('infernalparade');
+		// case 'hiddenpowerelectric':
+		// 	return (dex.gen < 4 && !moves.includes('thunderpunch')) && !moves.includes('thunderbolt');
+		// case 'hiddenpowerfighting':
+		// 	return (dex.gen < 4 && !moves.includes('brickbreak')) && !moves.includes('aurasphere') && !moves.includes('focusblast');
+		// case 'hiddenpowerfire':
+		// 	return (dex.gen < 4 && !moves.includes('firepunch')) && !moves.includes('flamethrower') &&
+		// 		!moves.includes('mysticalfire') && !moves.includes('burningjealousy');
+		// case 'hiddenpowergrass':
+		// 	return !moves.includes('energyball') && !moves.includes('grassknot') && !moves.includes('gigadrain');
+		// case 'hiddenpowerice':
+		// 	return !moves.includes('icebeam') && (dex.gen < 4 && !moves.includes('icepunch')) ||
+		// 		(dex.gen > 5 && !moves.includes('aurorabeam') && !moves.includes('glaciate'));
+		// case 'hiddenpowerflying':
+		// 	return dex.gen < 4 && !moves.includes('drillpeck');
+		// case 'hiddenpowerbug':
+		// 	return dex.gen < 4 && !moves.includes('megahorn');
+		// case 'hiddenpowerpsychic':
+		// 	return species.baseSpecies === 'Unown';
+		// case 'hyperspacefury':
+		// 	return species.id === 'hoopaunbound';
+		// case 'hypnosis':
+		// 	return (dex.gen < 4 && !moves.includes('sleeppowder')) || (dex.gen > 6 && abilityid === 'baddreams');
+		// case 'icepunch':
+		// 	return !moves.includes('icespinner') || ['sheerforce', 'ironfist'].includes(abilityid) || itemid === 'punchingglove';
+		// case 'iciclecrash':
+		// 	return !moves.includes('mountaingale');
+		// case 'icywind':
+		// 	// Keldeo needs Hidden Power for Electric/Ghost
+		// 	return species.baseSpecies === 'Keldeo' || this.formatType === 'doubles';
+		// case 'infestation':
+		// 	return moves.includes('stickyweb');
+		// case 'irondefense':
+		// 	return !moves.includes('acidarmor');
+		// case 'irontail':
+		// 	return dex.gen > 5 && !moves.includes('ironhead') && !moves.includes('gunkshot') && !moves.includes('poisonjab');
+		// case 'jumpkick':
+		// 	return !moves.includes('highjumpkick') && !moves.includes('axekick');
+		// case 'lastresort':
+		// 	return set && set.moves.length < 3;
+		// case 'leechlife':
+		// 	return dex.gen > 6;
+		// case 'mysticalfire':
+		// 	return dex.gen > 6 && !moves.includes('flamethrower');
+		// case 'naturepower':
+		// 	return dex.gen === 5;
+		// case 'nightslash':
+		// 	return !moves.includes('crunch') && !(moves.includes('knockoff') && dex.gen >= 6);
+		// case 'outrage':
+		// 	return !moves.includes('glaiverush');
+		// case 'petaldance':
+		// 	return abilityid === 'owntempo';
+		// case 'phantomforce':
+		// 	return (!moves.includes('poltergeist') && !moves.includes('shadowclaw')) || this.formatType === 'doubles';
+		// case 'poisonfang':
+		// 	return species.types.includes('Poison') && !moves.includes('gunkshot') && !moves.includes('poisonjab');
+		// case 'relicsong':
+		// 	return species.id === 'meloetta';
+		// case 'refresh':
+		// 	return !moves.includes('aromatherapy') && !moves.includes('healbell');
+		// case 'risingvoltage':
+		// 	return abilityid === 'electricsurge' || abilityid === 'hadronengine';
+		// case 'rocktomb':
+		// 	return abilityid === 'technician';
+		// case 'selfdestruct':
+		// 	return dex.gen < 5 && !moves.includes('explosion');
+		// case 'shadowpunch':
+		// 	return abilityid === 'ironfist' && !moves.includes('ragefist');
+		// case 'shelter':
+		// 	return !moves.includes('acidarmor') && !moves.includes('irondefense');
+		// case 'smackdown':
+		// 	return species.types.includes('Ground');
+		// case 'smartstrike':
+		// 	return species.types.includes('Steel') && !moves.includes('ironhead');
+		// case 'soak':
+		// 	return abilityid === 'unaware';
+		// case 'steelwing':
+		// 	return !moves.includes('ironhead');
+		// case 'stompingtantrum':
+		// 	return (!moves.includes('earthquake') && !moves.includes('drillrun')) || this.formatType === 'doubles';
+		// case 'stunspore':
+		// 	return !moves.includes('thunderwave');
+		// case 'technoblast':
+		// 	return dex.gen > 5 && itemid.endsWith('drive') || itemid === 'dousedrive';
+		// case 'teleport':
+		// 	return dex.gen > 7;
+		// case 'terrainpulse': case 'waterpulse':
+		// 	return ['megalauncher', 'technician'].includes(abilityid) && !moves.includes('originpulse');
+		// case 'toxicspikes':
+		// 	return abilityid !== 'toxicdebris';
+		// case 'trickroom':
+		// 	return species.baseStats.spe <= 100;
+		// }
+
+		// if (this.formatType === 'doubles' && BattleMoveSearch.GOOD_DOUBLES_MOVES.includes(id)) {
+		// 	return true;
+		// }
+		// // Custom move added by a mod
+		// if (this.mod && id in BattleTeambuilderTable[this.mod].overrideMoveInfo 
+		// 	&& !BattleTeambuilderTable[this.mod].overrideMoveInfo[id].unviable
+		// 	&& !BattleTeambuilderTable[this.mod].overrideMoveInfo[id].modMoveFromOldGen
+		// 	) return true;
+		// const modMoveData = BattleMovedex[id];
+		// if (!modMoveData) return true;
+		// if (modMoveData.category === 'Status') {
+		// 	return BattleMoveSearch.GOOD_STATUS_MOVES.includes(id);
+		// }
+		// const moveData = BattleMovedex[id];
+		// if (!moveData) return true;
+		// if (moveData.category === 'Status') {
+		// 	return BattleMoveSearch.GOOD_STATUS_MOVES.includes(id);
+		// }
+		// if (moveData.basePower < 75) {
+		// 	return BattleMoveSearch.GOOD_WEAK_MOVES.includes(id);
+		// }
+		// if (id === 'skydrop') return true;
+		// // strong moves
+		// if (moveData.flags?.charge) {
+		// 	return itemid === 'powerherb';
+		// }
+		// if (moveData.flags?.recharge) {
+		// 	return false;
+		// }
+		// if (moveData.flags?.slicing && abilityid === 'sharpness') {
+		// 	return true;
+		// }
+		// return !BattleMoveSearch.BAD_STRONG_MOVES.includes(id);
 	}
+	
+
+
 	static readonly GOOD_STATUS_MOVES = [
 		'acidarmor', 'agility', 'aromatherapy', 'auroraveil', 'autotomize', 'banefulbunker', 'batonpass', 'bellydrum', 'bulkup', 'calmmind', 'chillyreception', 'clangoroussoul', 'coil', 'cottonguard', 'courtchange', 'curse', 'defog', 'destinybond', 'detect', 'disable', 'dragondance', 'encore', 'extremeevoboost', 'filletaway', 'geomancy', 'glare', 'haze', 'healbell', 'healingwish', 'healorder', 'heartswap', 'honeclaws', 'kingsshield', 'leechseed', 'lightscreen', 'lovelykiss', 'lunardance', 'magiccoat', 'maxguard', 'memento', 'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'naturesmadness', 'noretreat', 'obstruct', 'painsplit', 'partingshot', 'perishsong', 'protect', 'quiverdance', 'recover', 'reflect', 'reflecttype', 'rest', 'revivalblessing', 'roar', 'rockpolish', 'roost', 'shedtail', 'shellsmash', 'shiftgear', 'shoreup', 'silktrap', 'slackoff', 'sleeppowder', 'sleeptalk', 'softboiled', 'spikes', 'spikyshield', 'spore', 'stealthrock', 'stickyweb', 'strengthsap', 'substitute', 'switcheroo', 'swordsdance', 'synthesis', 'tailglow', 'tailwind', 'taunt', 'thunderwave', 'tidyup', 'toxic', 'transform', 'trick', 'victorydance', 'whirlwind', 'willowisp', 'wish', 'yawn',
 	] as ID[] as readonly ID[];
